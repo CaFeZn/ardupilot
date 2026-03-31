@@ -43,6 +43,19 @@ def _build_dynamic_sources(bld):
         bld = tsk.generator.bld
         return bld.write_version_header(tsk.outputs[0].abspath())
 
+    # Generate DroneCAN DSDL headers/sources for bootloader builds
+    bld(
+        features='dronecangen',
+        source=bld.srcnode.ant_glob('modules/DroneCAN/DSDL/[a-z]* libraries/AP_DroneCAN/dsdl/[a-z]*', dir=True, src=False),
+        output_dir='modules/DroneCAN/libcanard/dsdlc_generated/',
+        name='dronecan',
+        export_includes=[
+            bld.bldnode.make_node('modules/DroneCAN/libcanard/dsdlc_generated/include').abspath(),
+            bld.srcnode.find_dir('modules/DroneCAN/libcanard/').abspath(),
+            bld.srcnode.find_dir('libraries/AP_DroneCAN/canard/').abspath(),
+        ]
+    )
+
     bld(
         name='ap_version',
         target='ap_version.h',
