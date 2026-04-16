@@ -175,7 +175,8 @@ PE5 SPI4_MISO SPI4
 PC2 ICM45686_G_CS CS
 PC13 ICM45686_A_CS CS
 
-# barometers
+# SPA06 barometer on I2C1
+define AP_BARO_SPL06_ENABLED 1
 BARO SPL06 I2C:0:0x77
 
 # enable onboard W25Q128 dataflash logging support while keeping SD
